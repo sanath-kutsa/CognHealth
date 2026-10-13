@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CognHealth: Early Alzheimer's Risk Awareness &amp; Cognitive Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A1830;--ink:#E6EEFB;--mut:#A3B5D1;--card:#0F2247;--line:#24427A;--blue:#5B94FF;--cy:#22D3EE;--ok:#16A34A;--warn:#D97706;--bad:#DC2626;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0A1424;--ink:#E6EEFB;--mut:#9DB0CB;--card:#101D33;--line:#1F3150;--blue:#4F8BFF}}
+:root[data-theme=dark]{--bg:#0A1424;--ink:#E6EEFB;--mut:#9DB0CB;--card:#101D33;--line:#1F3150;--blue:#4F8BFF}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:16px/1.6 Sora,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em}h1{font-size:clamp(2rem,5vw,3.3rem);letter-spacing:-.02em}h2{font-size:1.5rem}
+p{margin:0 0 1em}.mut{color:var(--mut)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;background:none;border:0;color:var(--ink);cursor:pointer;font-family:inherit}
+.brand svg{width:38px;height:38px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{background:none;border:0;padding:8px 12px;border-radius:8px;color:var(--mut);font:600 .9rem Sora,system-ui,sans-serif;cursor:pointer}
+nav button:hover,nav button.on{color:var(--blue);background:color-mix(in srgb,var(--blue) 10%,transparent)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--cy);outline-offset:2px}
+main{padding:36px 0 24px}.view[hidden]{display:none}
+.btn{background:var(--blue);color:#fff;border:0;padding:12px 22px;border-radius:10px;font:600 1rem Sora,system-ui,sans-serif;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--blue);border:2px solid var(--blue)}.btn:hover{filter:brightness(1.08)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.hero svg{width:100%;max-width:420px;justify-self:center}
+.hero .nd{animation:pulse 3.2s ease-in-out infinite}.hero .nd:nth-of-type(2n){animation-delay:.8s}.hero .nd:nth-of-type(3n){animation-delay:1.6s}
+@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}.hero .nd{transform-box:fill-box;transform-origin:center}
+@media(prefers-reduced-motion:reduce){.hero .nd{animation:none}}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+.card-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.note{border-left:4px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);padding:12px 16px;border-radius:8px;font-size:.9rem;margin-top:28px}
+.panel{max-width:680px;margin:0 auto}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cy))}
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{text-align:left;background:var(--card);border:1.5px solid var(--line);color:var(--ink);padding:14px 16px;border-radius:10px;font:inherit;cursor:pointer}.opt:hover{border-color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.chip{background:var(--card);border:1.5px solid var(--line);color:var(--ink);padding:10px 16px;border-radius:999px;font:600 1rem Sora,system-ui,sans-serif}
+button.chip{cursor:pointer}.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.score{font-size:4rem;font-weight:700;line-height:1}.tag{display:inline-block;padding:4px 12px;border-radius:999px;color:#fff;font-weight:600;font-size:.9rem;margin-left:8px;vertical-align:middle}
+.fb{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-size:.85rem;margin:6px 0}
+.fb b{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--cy))}
+.badge{background:var(--cy);color:#0B1F3A;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-left:8px}
+.grid{display:grid;gap:10px;max-width:420px;margin:16px 0}
+.card{aspect-ratio:1;font-size:2rem;background:var(--blue);border:0;border-radius:12px;cursor:pointer;color:#fff}.card.up{background:var(--card);border:2px solid var(--blue)}.card.ok{background:color-mix(in srgb,var(--ok) 20%,var(--card));border-color:var(--ok)}
+.pads{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:320px;margin:16px 0}
+.pad{aspect-ratio:1;border:0;border-radius:16px;opacity:.45;cursor:pointer}.pad.lit{opacity:1;filter:brightness(1.3)}
+.p0{background:#2563EB}.p1{background:#22D3EE}.p2{background:#6366F1}.p3{background:#0EA5E9}
+table{border-collapse:collapse;width:100%;font-size:.9rem}td,th{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+.hero2{background:linear-gradient(135deg,#0B1F3A,#2563EB 70%,#22D3EE);color:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 40px color-mix(in srgb,var(--blue) 40%,transparent)}.hero2 p{opacity:.92}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.stats span{background:#ffffff26;padding:6px 14px;border-radius:999px;font-weight:600;font-size:.9rem}.hero2 .bar{background:#ffffff33}.hero2 .bar i{background:#fff}
+.lg .em{font-size:2rem}.lg{transition:transform .2s,box-shadow .2s}.lg:hover{transform:translateY(-3px);box-shadow:0 8px 24px color-mix(in srgb,var(--blue) 25%,transparent)}.q{font-size:1.1rem;font-weight:600;margin:12px 0}
+.mx{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px;margin:10px 0}.mx div{background:var(--card);border:1.5px solid var(--line);border-radius:10px;color:var(--blue);aspect-ratio:1;display:grid;place-items:center;padding:4px}.qm{font-size:1.8rem;font-weight:700}
+.mo{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px}.tile{padding:6px;text-align:center;color:var(--blue)}.opt.good{background:#16A34A;border-color:#16A34A;color:#fff}.opt.bad{background:#DC2626;border-color:#DC2626;color:#fff}.pop{animation:pop .35s ease both;margin:14px 0}@keyframes pop{from{transform:scale(.9);opacity:0}}
+.lw{position:relative;width:38px;height:38px;display:block}.lw svg{position:absolute;inset:0}
+.sw{filter:brightness(1.5) saturate(1.1);-webkit-mask-image:linear-gradient(45deg,transparent 40%,rgba(0,0,0,.7) 50%,transparent 60%);mask-image:linear-gradient(45deg,transparent 40%,rgba(0,0,0,.7) 50%,transparent 60%);-webkit-mask-size:300% 300%;mask-size:300% 300%;-webkit-mask-position:100% 0%;mask-position:100% 0%;animation:sweep 5s ease-in-out infinite}
+@keyframes sweep{0%{-webkit-mask-position:100% 0%;mask-position:100% 0%}25%,100%{-webkit-mask-position:0% 100%;mask-position:0% 100%}}
+@media(prefers-reduced-motion:reduce){.sw{animation:none}}
+body{background:radial-gradient(1000px 700px at 50% -5%,#17408f 0%,#0d2550 45%,#0A1830 100%) fixed,#0A1830}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}main,footer{position:relative;z-index:1}
+.card-box{background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(6px);box-shadow:0 0 0 1px #4F8BFF14,0 8px 30px #0005}
+input[type=text],input[type=tel]{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin:6px 0 12px}
+.about-card{text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:1.5px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,#2563EB,#22D3EE) border-box;animation:aglow 3s ease-in-out infinite;transition:transform .2s}.about-card:hover{transform:translateY(-3px)}.about-card h3{margin:.5em 0 .3em}.about-card p{margin:0;color:var(--mut)}.new{background:var(--cy);color:#0B1F3A;font-size:.7rem;font-weight:700;padding:2px 10px;border-radius:999px}
+@keyframes aglow{50%{box-shadow:0 0 24px #22D3EE55}}@media(prefers-reduced-motion:reduce){.about-card{animation:none}}
+nav button[data-v=logic]{color:#fff;background:linear-gradient(135deg,#2563EB,#22D3EE);animation:aglow 3s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){nav button[data-v=logic]{animation:none}}
+@media(max-width:600px){nav button{padding:6px 8px;font-size:.8rem}.hd{gap:6px}}
+.art{display:block;color:inherit;text-decoration:none}.art:hover{border-color:var(--blue)}
+footer{border-top:1px solid var(--line);padding:24px 0;font-size:.85rem;color:var(--mut)}
+footer button{background:none;border:0;color:var(--blue);cursor:pointer;font:inherit;padding:0 8px 0 0}
+dialog{max-width:560px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:24px}dialog::backdrop{background:#0008}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.fb{grid-template-columns:110px 1fr 38px}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+<symbol id="logo" viewBox="0 0 64 64"><g fill="none" stroke="url(#g)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 36C8 28 12 17 24 14C28 8 38 7 43 12C52 12 58 20 56 28C58 33 54 38 48 38C44 38 40 37 38 38L38 50L31 50L31 40C26 41 20 40 17 38C15 38 13 37 12 36Z"/><path stroke-width="1.8" d="M40 39C46 37 53 40 50 45C47 48 42 47 40 44"/>
+<path stroke-width="1.5" d="M22 24L31 18L41 21L50 27L45 35L40 30L30 29L22 24M19 32L22 24M19 32L27 36L30 29M27 36L40 30M31 18L30 29M41 21L40 30M50 27L40 30"/></g>
+<g fill="url(#g)"><circle class="nd" cx="22" cy="24" r="2.6"/><circle class="nd" cx="31" cy="18" r="2.6"/><circle class="nd" cx="41" cy="21" r="2.6"/><circle class="nd" cx="50" cy="27" r="2.6"/><circle class="nd" cx="19" cy="32" r="2.4"/><circle class="nd" cx="30" cy="29" r="3"/><circle class="nd" cx="40" cy="30" r="2.6"/><circle class="nd" cx="45" cy="35" r="2.4"/><circle class="nd" cx="27" cy="36" r="2.4"/></g></symbol></defs></svg>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<header><div class="wrap hd">
+<button class="brand" onclick="go('home')" aria-label="CognHealth home"><span class="lw"><svg><use href="#logo"/></svg><svg class="sw" aria-hidden="true"><use href="#logo"/></svg></span>CognHealth</button>
+<nav><button data-v="alz" onclick="go('alz')">Alzheimer's check</button><button data-v="iq" onclick="go('iq')">Cognitive skills</button><button data-v="logic" onclick="go('logic')">⚡ Logic Arena</button><button data-v="articles" onclick="go('articles')">Articles</button></nav><button class="btn" id="ub" onclick="go('login')" style="padding:8px 16px;font-size:.9rem">Sign in</button>
+</div></header>
+
+<main class="wrap">
+<section class="view" id="home">
+<div class="hero"><div>
+<h1>Early Alzheimer's risk awareness, then a plan to train your brain.</h1>
+<p class="mut">Answer questions that adapt to you, based on published Alzheimer's risk factors. Get your risk awareness score, then play personalised memory games to keep your mind sharp.</p>
+<div class="row"><button class="btn" onclick="go('alz')">Start Alzheimer's check</button><button class="btn ghost" onclick="go('iq')">Try cognitive skills estimate</button></div></div>
+<svg viewBox="0 0 64 64" role="img" aria-label="Blue neural network brain logo"><use href="#logo"/></svg></div>
+<div class="cards">
+<div class="card-box"><h3>Adaptive questions</h3><p class="mut">Your answers decide which follow-up questions come next, like age-specific hearing and memory checks.</p></div>
+<div class="card-box"><h3>Risk awareness score</h3><p class="mut">A logistic regression model weighs lifestyle, health and a word-recall test, and shows what contributed most.</p></div>
+<div class="card-box"><h3>Games that adapt</h3><p class="mut">Memory and sequence games rise and fall in difficulty and are recommended for your weakest areas.</p></div><button class="card-box about-card" onclick="go('about')"><span class="new">NEW</span><h3>About the model →</h3><p>See how your score is calculated, and what it can't tell you.</p></button></div>
+<div class="note"><b>Not a medical diagnosis.</b> CognHealth is an educational screening-style tool. It cannot predict or diagnose Alzheimer's disease. If you are worried about your memory, please see a doctor.</div>
+</section>
+
+<section class="view" id="consent" hidden><div class="panel card-box">
+<h2>Before you begin</h2>
+<p class="mut">CognHealth is for education and awareness. Your answers stay in this browser tab and are not sent anywhere.</p>
+<label><input type="checkbox" id="cb"> I am 13 or older, and I understand this is not medical advice or a diagnosis. I agree to the <button class="lk" onclick="legal('terms')" style="background:none;border:0;color:var(--blue);cursor:pointer;font:inherit;padding:0">Terms</button> and <button onclick="legal('privacy')" style="background:none;border:0;color:var(--blue);cursor:pointer;font:inherit;padding:0">Privacy Policy</button>.</label>
+<div class="row"><button class="btn" id="cbgo">Continue</button></div></div></section>
+
+<section class="view" id="alz" hidden><div class="panel" id="alzBody"></div></section>
+<section class="view" id="iq" hidden><div class="panel" id="iqBody"></div></section>
+
+
+
+<section class="view" id="logic" hidden><div class="hero2" id="lhero"></div><div class="cards" id="lcards"></div><div class="card-box" id="larena" style="margin-top:20px" hidden></div><p class="mut" style="font-size:.85rem;margin-top:16px"><b>Please note:</b> These puzzles are built around reasoning tasks used in cognitive research, but research on whether brain training improves general intelligence is mixed. Improvement in IQ is not guaranteed. CognHealth is not a medical product.</p><div id="gsec" style="margin-top:36px"><h2>Brain games</h2><p class="mut">Memory, attention and puzzle games that adapt to you. Take a test to get personalised recommendations.</p><div class="cards" id="gcards"></div><div class="card-box" id="arena" style="margin-top:20px" hidden></div></div></section>
+<section class="view" id="login" hidden><div class="panel card-box"><h2>Sign in to CognHealth</h2><div class="note" style="margin:0 0 16px"><b>Demo mode.</b> No real account is created and nothing is verified or sent anywhere. Real Google sign-in comes with the live version.</div><div id="lbody"></div></div></section>
+<section class="view" id="contact" hidden><div class="panel card-box"><h2>Contact us</h2><p class="mut">Questions, feedback or ideas for CognHealth? We'd love to hear from you.</p><p><b>Email:</b> <a href="mailto:cognhealth@gmail.com" style="color:var(--blue)">cognhealth@gmail.com</a></p><div class="note">We can't give medical advice by email. If you are worried about your memory or thinking, please see a doctor.</div></div></section>
+<section class="view" id="articles" hidden><h2>Articles</h2><p class="mut">Reading from trusted sources on Alzheimer's, neuroscience, brain health and AI. Links open in a new tab.</p><div class="row" id="af"></div><div class="cards" id="alist"></div></section>
+<section class="view" id="about" hidden><div class="panel">
+<h2>About the model</h2>
+<p>The Alzheimer's score uses <b>logistic regression</b>: score = 100 / (1 + e<sup>−(b + Σ wᵢxᵢ)</sup>). Each weight is the log relative risk of a risk factor, inspired by published reviews such as the Lancet Commission on dementia prevention. Questions are <b>adaptive</b>: follow-ups appear only when earlier answers make them relevant.</p>
+<table id="wt"><tr><th>Factor</th><th>Weight</th></tr></table>
+<h3 style="margin-top:24px">The skills estimate</h3>
+<p>Difficulty moves up after a correct answer and down after a miss (an item-response-theory style staircase). The final index comes from the difficulty you reach, on a 70–130 scale.</p>
+<h3>Limits, honestly</h3>
+<p class="mut">The weights are illustrative and not calibrated on patient data. Real research uses datasets like ADNI, OASIS and NACC plus clinical tests. The included Python file trains the same model on a synthetic cohort. The score is an awareness indicator, not a probability of getting Alzheimer's, and the cognitive index is not a real IQ.</p></div></section>
+</main>
+
+<footer><div class="wrap"><button onclick="legal('terms')">Terms</button><button onclick="legal('privacy')">Privacy</button><button onclick="legal('disc')">Disclaimer</button><button onclick="go('contact')">Contact</button><p style="margin-top:10px">© 2026 CognHealth. Not a medical device.</p></div></footer>
+<dialog id="dlg"><div id="dtx"></div><div class="row"><button class="btn" onclick="dlg.close()">Close</button></div></dialog>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const R=n=>Math.floor(Math.random()*n),N=(a,b)=>a+R(b-a+1),sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+let consent=false,pend='alz',A={},Q=[],i=0,T={},G={m:1,s:1},S={weak:[]};
+const LEG={terms:"<h3>Terms of Use</h3><p>CognHealth is provided for education and awareness only. It is not a medical device and gives no diagnosis or treatment advice. Results are estimates and may be wrong. You use the site at your own risk, and should consult a qualified doctor about any health concern.</p>",
+privacy:"<h3>Privacy Policy</h3><p>This prototype runs entirely in your browser. Your answers and scores are held in memory for the current session and are not uploaded, stored or shared. Closing the tab clears them.</p>",
+disc:"<h3>Medical Disclaimer</h3><p>Nothing here is a diagnosis. The Alzheimer's score reflects general risk factors, not whether you have or will develop the disease. The cognitive skills index is not a clinical IQ score. If you are concerned about memory or thinking, speak to a healthcare professional.</p>"};
+function legal(k){$('#dtx').innerHTML=LEG[k];dlg.showModal()}
+function show(v){$$('.view').forEach(e=>e.hidden=e.id!==v);$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));scrollTo(0,0)}
+function go(v){const gm=v=='games';if(gm)v='logic';if((v=='alz'||v=='iq')&&!consent){pend=v;show('consent');return}
+if(v=='alz')startAlz();if(v=='iq')startIQ();if(v=='articles')renderArticles();if(v=='logic'){renderArena();renderGames()}if(v=='login')renderLogin();show(v);if(gm)$('#gsec').scrollIntoView({behavior:'smooth'})}
+$('#cbgo').onclick=()=>{if(!$('#cb').checked){$('#cb').focus();return}consent=true;go(pend)};
+
+/* ---------- Alzheimer's risk check ---------- */
+const O=(...a)=>a.map(x=>({t:x[0],v:x[1]})),YN=O(['No',0],['Yes',1]);
+const BASE=[
+{id:'age',q:'What is your age group?',o:O(['Under 40',35],['40–49',45],['50–59',55],['60–69',65],['70–79',75],['80 or older',85])},
+{id:'edu',q:'What is your highest level of education?',o:O(['Less than high school',1],['High school',.5],['College or higher',0])},
+{id:'fam',q:"Has a parent or sibling had Alzheimer's disease?",o:O(['No',0],['Yes',1],['Not sure',.4])},
+{id:'sleep',q:'How many hours do you usually sleep?',o:O(['Under 5',1],['5–6',.5],['7–8',0],['9 or more',.4])},
+{id:'exer',q:'How often do you exercise?',o:O(['Rarely',1],['1–2 times a week',.5],['3 or more times a week',0])},
+{id:'hbp',q:'Do you have high blood pressure?',o:YN},{id:'dia',q:'Do you have diabetes?',o:YN},{id:'smk',q:'Do you currently smoke?',o:YN},
+{id:'head',q:'Have you ever had a head injury with loss of consciousness?',o:YN},{id:'alc',q:'Do you regularly drink heavily (more than 2 drinks a day)?',o:YN},
+{id:'obes',q:'Would a doctor describe you as obese?',o:O(['No',0],['Yes',1],['Not sure',.3])},{id:'chol',q:'Do you have high LDL ("bad") cholesterol?',o:O(['No',0],['Yes',1],['Not sure',.3])},
+{id:'vis',q:'Do you have vision loss that glasses or surgery have not fixed?',o:YN},{id:'cog',q:'How often do you read, learn or do mentally stimulating activities?',o:O(['Daily',0],['Weekly',.4],['Rarely',1])},
+{id:'diet',q:'How often do you eat fruit, vegetables and fish?',o:O(['Most days',0],['Some days',.5],['Rarely',1])}];
+const MEM={id:'mem',q:'Have you or others noticed you forgetting recent events more than before?',o:O(['No',0],['Sometimes',.5],['Often',1])},
+HEAR={id:'hear',q:'Do you have difficulty hearing in conversations?',o:YN},
+FAME={id:'famE',q:'Did that relative develop it before age 65?',o:YN},
+CTRL={id:'ctrl',q:'Is it controlled with treatment?',o:O(['No',0],['Yes',1])},
+SOC={id:'soc',q:'Do you often feel isolated or see friends and family rarely?',o:YN},
+MOOD={id:'mood',q:'Have you felt low or down most days recently?',o:YN};
+const LANG={id:'lang',q:'Do you have trouble finding words or get lost in familiar places?',o:O(['No',0],['Sometimes',.5],['Often',1])};
+function follow(id,v){if(id=='age')return v>=60?[MEM,HEAR,LANG]:v>=50?[HEAR]:[];if(id=='fam')return v==1?[FAME]:[];
+if((id=='hbp'||id=='dia')&&v==1)return[CTRL];if(id=='smk')return A.age>=50?[SOC,MOOD]:[];return[]}
+function startAlz(){A={};Q=[...BASE];i=0;qAlz()}
+function qAlz(){if(i>=Q.length)return wordTask();const q=Q[i];
+$('#alzBody').innerHTML=`<div class=bar><i style="width:${i/(Q.length+1)*100}%"></i></div><p class=mut>Question ${i+1} of ${Q.length+1}</p><h2>${q.q}</h2><div class=opts>${q.o.map((o,j)=>`<button class=opt data-j=${j}>${o.t}</button>`).join('')}</div>`;
+$$('#alzBody .opt').forEach(b=>b.onclick=()=>{const v=q.o[+b.dataset.j].v;A[q.id]=v;Q.splice(i+1,0,...follow(q.id,v).filter(x=>!Q.some(y=>y.id==x.id)));i++;qAlz()})}
+function wordTask(){const pool=sh(['apple','river','candle','garden','pencil','window','violin','orange','bridge','blanket','mirror','saddle','ladder','coin','pillow']),tgt=pool.slice(0,5),opts=sh(pool.slice(0,10));let t=8;
+$('#alzBody').innerHTML=`<div class=bar><i style="width:92%"></i></div><h2>Word recall</h2><p>Memorise these 5 words. They disappear in <b id=t>8</b> seconds.</p><div class=chips>${tgt.map(w=>`<span class=chip>${w}</span>`).join('')}</div>`;
+const iv=setInterval(()=>{t--;$('#t').textContent=t;if(t<=0){clearInterval(iv);pick()}},1000);
+function pick(){$('#alzBody').innerHTML=`<h2>Which words did you see?</h2><p class=mut>Select every word you remember.</p><div class=chips>${opts.map(w=>`<button class="chip sel" data-w=${w}>${w}</button>`).join('')}</div><button class=btn id=sub>See my result</button>`;
+$$('.sel').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
+$('#sub').onclick=()=>{const ch=$$('.sel.on').map(b=>b.dataset.w),hit=ch.filter(w=>tgt.includes(w)).length;A.rec=Math.max(0,Math.min(5,5-hit+ch.length-hit));result()}}}
+const W={edu:['Lower education',.47],fam:["Family history",.59],famE:['Relative under 65',.3],sleep:['Poor sleep',.26],exer:['Low activity',.34],hbp:['High blood pressure',.47],dia:['Diabetes',.4],smk:['Smoking',.47],hear:['Hearing difficulty',.64],mem:['Memory complaints',.5],soc:['Social isolation',.47],mood:['Low mood',.5],head:['Head injury',.59],alc:['Heavy drinking',.18],obes:['Obesity',.47],chol:['High LDL cholesterol',.53],vis:['Vision loss',.4],cog:['Low mental activity',.3],diet:['Poor diet',.2],lang:['Word-finding trouble',.5],rec:['Word recall',.25]};
+$('#wt').insertAdjacentHTML('beforeend','<tr><td>Age (per decade over 60)</td><td>0.60</td></tr>'+Object.values(W).map(w=>`<tr><td>${w[0]}${w[0]=='Word recall'?' (per word missed)':''}</td><td>${w[1].toFixed(2)}</td></tr>`).join('')+'<tr><td>Intercept</td><td>−3.60</td></tr>');
+function result(){const c=[],ag=Math.max(0,(A.age-60)/10)*.6;if(ag)c.push(['Age',ag]);
+for(const k in W){let x=A[k];if(!x)continue;if((k=='hbp'||k=='dia')&&A.ctrl===1)x*=.6;c.push([W[k][0],W[k][1]*x])}
+c.sort((a,b)=>b[1]-a[1]);const lg=-3.6+c.reduce((s,x)=>s+x[1],0),p=Math.round(100/(1+Math.exp(-lg))),
+lv=p<15?['Low','#16A34A','Your answers show few of the known risk factors. Keep up healthy habits.']:p<35?['Moderate','#D97706','Some risk factors apply to you. Many, like exercise, sleep and blood pressure, can be improved.']:['High','#DC2626','Several risk factors apply. This is not a diagnosis, but please discuss your answers with a doctor.'],mx=c[0]?c[0][1]:1;
+if(A.rec>=2||A.mem>=.5)S.weak.push('memory','nback');
+$('#alzBody').innerHTML=`<h2>Your Alzheimer's risk awareness score</h2><div class=card-box><span class=score>${p}</span><span class=mut> / 100</span><span class=tag style="background:${lv[1]}">${lv[0]}</span><p style="margin-top:12px">${lv[2]}</p></div>
+<h3 style="margin-top:24px">What contributed most</h3>${c.length?c.slice(0,7).map(x=>`<div class=fb><span>${x[0]}</span><b style="width:${x[1]/mx*100}%"></b><span>+${x[1].toFixed(2)}</span></div>`).join(''):'<p class=mut>No risk factors were flagged.</p>'}
+<div class=note>This is an awareness score, not a diagnosis or a probability of developing Alzheimer's. If you have concerns, see a doctor.</div>
+<div class=row><button class=btn onclick="go('games')">Train with brain games</button><button class="btn ghost" onclick="go('iq')">Cognitive skills estimate</button></div>`}
+
+/* ---------- Cognitive skills estimate (adaptive) ---------- */
+const CATS=['numeric','pattern','verbal','logic'];
+const VB=[[1,'Happy is to sad as hot is to…',['cold','warm','sun','fire']],[2,'Which is the odd one out?',['Carrot','Apple','Banana','Mango']],[3,'Doctor : Hospital :: Teacher : ?',['School','Book','Student','Chalk']],[4,'Opposite of "scarce"?',['Plentiful','Rare','Costly','Hidden']],[5,'Closest in meaning to "ephemeral"?',['Brief','Lasting','Ancient','Heavy']],[2,'Which word means the same as "happy"?',['joyful','angry','tired','cold']],[3,'Book : Reading :: Fork : ?',['Eating','Cooking','Cutting','Washing']],[4,'Which does not belong?',['Drum','Violin','Cello','Harp']],[5,'"Laconic" most nearly means…',['using few words','very angry','full of energy','easily fooled']]];
+const LG=[[1,'All cats are animals. Tom is a cat. So Tom is…',['an animal','a dog','a plant','unknown']],[2,'If today is Tuesday, what day is it in 3 days?',['Friday','Thursday','Saturday','Wednesday']],[3,'Ann is taller than Bo. Bo is taller than Cy. Who is shortest?',['Cy','Ann','Bo','Cannot tell']],[4,'Some doctors are runners. All runners are healthy. Which must be true?',['Some doctors are healthy','All doctors are healthy','No doctors are healthy','All healthy people run']],[5,'5 machines make 5 widgets in 5 minutes. How long for 100 machines to make 100 widgets?',['5 minutes','100 minutes','20 minutes','1 minute']],[2,'Which number is the odd one out: 2, 4, 6, 9?',['9','2','4','6']],[3,'Next in the series: Mon, Wed, Fri, …?',['Sun','Sat','Thu','Tue']],[4,'All Bloops are Razzies and all Razzies are Lazzies. Are all Bloops Lazzies?',['Yes','No','Only some','Cannot tell']],[5,'A bat and ball cost £1.10 together. The bat costs £1 more than the ball. How much is the ball?',['5p','10p','1p','15p']]];
+function mk(q,a,t=x=>x){const s=new Set([a]);while(s.size<4)s.add(a+N(-9,9));const o=sh([...s]);return{q,o:o.map(t),a:o.indexOf(a)}}
+function gen(cat,d){let x=N(3,20),y=N(3,20),z=N(2,9);
+if(cat=='numeric'){if(d==1)return mk(`${x} + ${y} = ?`,x+y);if(d==2)return mk(`${z+3} × ${N(4,12)} = ?`,0)&&(()=>{const a=z+3,b=N(4,12);return mk(`${a} × ${b} = ?`,a*b)})();
+if(d==3)return mk(`${z+3} × ${y} + ${x} = ?`,(z+3)*y+x);if(d==4)return mk(`(${x} + ${y}) × ${z} − ${N(2,9)} = ?`,0)&&(()=>{const w=N(2,9);return mk(`(${x} + ${y}) × ${z} − ${w} = ?`,(x+y)*z-w)})();
+const v=N(2,9)*40;return mk(`What is 15% of ${v}?`,v*.15)}
+if(cat=='pattern'){let s=[],k=N(2,6),b=N(1,9),a;
+if(d==1){for(let j=0;j<5;j++)s.push(b+j*k)}else if(d==2){k=N(5,12);for(let j=0;j<5;j++)s.push(b+j*k)}
+else if(d==3){k=N(2,3);for(let j=0;j<5;j++)s.push(b*k**j)}else if(d==4){a=N(2,5);for(let j=0;j<6;j++)s.push(j?s[j-1]+(j%2?a:k):b)}
+else{for(let j=0;j<5;j++)s.push(j?s[j-1]+k+j-1:b)}
+const ans=d==1||d==2?b+5*k:d==3?b*k**5:d==4?s[5]+(5%2?a:k):s[4]+k+4,sq=d==4?s.slice(0,5):s;
+if(d==4)return mk(`${s.slice(0,5).join(', ')}, ?`,s[5]);
+return mk(`${s.join(', ')}, ?`,ans)}
+const bank=(cat=='verbal'?VB:LG).filter(b=>!T.used.has(b[1])).sort((p,q)=>Math.abs(p[0]-d)-Math.abs(q[0]-d))[0]||(cat=='verbal'?VB:LG)[0];T.used.add(bank[1]);
+const o=sh(bank[2]);return{q:bank[1],o,a:o.indexOf(bank[2][0])}}
+function startIQ(){T={n:0,L:2,h:[],used:new Set()};qIQ()}
+function qIQ(){if(T.n>=20)return resIQ();const cat=CATS[T.n%4],item=gen(cat,T.L);
+$('#iqBody').innerHTML=`<div class=bar><i style="width:${T.n/20*100}%"></i></div><p class=mut>Question ${T.n+1} of 20 · ${cat} · level ${T.L}</p><h2>${item.q}</h2><div class=opts>${item.o.map((o,j)=>`<button class=opt data-j=${j}>${o}</button>`).join('')}</div>`;
+$$('#iqBody .opt').forEach(b=>b.onclick=()=>{const ok=+b.dataset.j==item.a;T.h.push({cat,d:T.L,ok});T.L=Math.max(1,Math.min(5,T.L+(ok?1:-1)));T.n++;qIQ()})}
+function resIQ(){const ab=T.h.slice(-10).reduce((s,h)=>s+(h.ok?h.d:h.d-1),0)/10,ix=Math.round(70+ab*12),
+band=ix<85?'Building':ix<=105?'Typical':ix<=120?'Strong':'Exceptional',cs=CATS.map(c=>{const h=T.h.filter(x=>x.cat==c);return[c,h.filter(x=>x.ok).length/h.length]});
+cs.forEach(([c,r])=>{if(r<.6)S.weak.push(c)});
+$('#iqBody').innerHTML=`<h2>Your cognitive skills estimate</h2><div class=card-box><span class=score>${ix}</span><span class=tag style="background:var(--blue)">${band}</span><p style="margin-top:12px" class=mut>An estimate on a 70–130 scale from how high the difficulty climbed. It is not a clinical IQ score.</p></div>
+<h3 style="margin-top:24px">Accuracy by skill</h3>${cs.map(([c,r])=>`<div class=fb><span>${c}</span><b style="width:${Math.max(r*100,4)}%"></b><span>${Math.round(r*100)}%</span></div>`).join('')}
+<div class=row><button class=btn onclick="go('games')">Train with brain games</button><button class="btn ghost" onclick="go('iq')">Retake</button></div>`}
+
+/* ---------- Games ---------- */
+function renderGames(){const rec=k=>S.weak.includes(k)?'<span class=badge>Recommended for you</span>':'';
+$('#gcards').innerHTML=`<div class=card-box><h3>Memory Match${rec('memory')}</h3><p class=mut>Flip cards and find the pairs. Builds working memory.</p><button class=btn onclick="memGame()">Play</button></div><div class=card-box><h3>Sequence Recall${rec('seq')}</h3><p class=mut>Watch the pattern, then repeat it. Builds attention and pattern memory.</p><button class=btn onclick="seqGame()">Play</button></div>`}
+function memGame(){const L=G.m,np=[3,6,8][L-1],em=sh(['🧠','🍎','🌙','⭐','🎵','🌿','🔷','🚀']).slice(0,np),cards=sh([...em,...em]);let op=[],lock=false,mv=0,dn=0;
+const ar=$('#arena');ar.hidden=false;ar.innerHTML=`<h3>Memory Match · Level ${L}</h3><p id=st class=mut>Moves: 0</p><div class=grid style="grid-template-columns:repeat(${np==3?3:4},1fr)">${cards.map((c,k)=>`<button class=card data-i=${k} aria-label="card ${k+1}"></button>`).join('')}</div>`;
+const B=$$('#arena .card');B.forEach(b=>b.onclick=()=>{const k=+b.dataset.i;if(lock||b.classList.contains('up'))return;b.textContent=cards[k];b.classList.add('up');op.push(k);
+if(op.length==2){mv++;$('#st').textContent='Moves: '+mv;const[x,y]=op;op=[];
+if(cards[x]==cards[y]){B[x].classList.add('ok');B[y].classList.add('ok');if(++dn==np){const up=mv<=np*2.5&&L<3;if(up)G.m++;$('#st').innerHTML=`Done in ${mv} moves. ${up?'Level up!':'Nice work.'} <button class=btn onclick="memGame()">Play again</button>`}}
+else{lock=true;setTimeout(()=>{[x,y].forEach(j=>{B[j].classList.remove('up');B[j].textContent=''});lock=false},700)}}});ar.scrollIntoView({behavior:'smooth'})}
+function seqGame(){const L=G.s,seq=Array.from({length:L+2},()=>R(4));let k=0;const ar=$('#arena');ar.hidden=false;
+ar.innerHTML=`<h3>Sequence Recall · Level ${L}</h3><p id=st class=mut>Watch the pattern…</p><div class=pads>${[0,1,2,3].map(j=>`<button class="pad p${j}" data-i=${j} disabled aria-label="pad ${j+1}"></button>`).join('')}</div>`;
+const P=$$('#arena .pad'),fl=j=>{P[j].classList.add('lit');setTimeout(()=>P[j].classList.remove('lit'),350)};
+seq.forEach((s,j)=>setTimeout(()=>fl(s),700+j*700));setTimeout(()=>{$('#st').textContent='Your turn: repeat it';P.forEach(p=>p.disabled=false)},700+seq.length*700);
+P.forEach(p=>p.onclick=()=>{const j=+p.dataset.i;fl(j);if(j!=seq[k]){P.forEach(x=>x.disabled=true);G.s=Math.max(1,L-1);$('#st').innerHTML='Missed it. <button class=btn onclick="seqGame()">Try again</button>';return}
+if(++k==seq.length){P.forEach(x=>x.disabled=true);G.s=L+1;$('#st').innerHTML='Correct! <button class=btn onclick="seqGame()">Next level</button>'}});ar.scrollIntoView({behavior:'smooth'})}
+const GL=[['memory','Memory Match','Flip cards and find pairs. Trains working memory.','memGame()'],['seq','Sequence Recall','Repeat growing light patterns. Trains attention.','seqGame()'],['nback','N-Back','Spot when a letter matches the one before it. Trains working memory, which is linked to reasoning ability.','nback()'],['numeric','Math Sprint','Adaptive mental arithmetic.',"puzzle('numeric','Math Sprint')"],['pattern','Pattern Puzzle','Find the next number in the sequence.',"puzzle('pattern','Pattern Puzzle')"],['verbal','Word Puzzle','Analogies, synonyms and odd-one-out.',"puzzle('verbal','Word Puzzle')"],['logic','Logic Puzzle','Reasoning and deduction.',"puzzle('logic','Logic Puzzle')"]];
+function renderGames(){$('#gcards').innerHTML=GL.map(g=>`<div class=card-box><h3>${g[1]}${S.weak.includes(g[0])?'<span class=badge>Recommended for you</span>':''}</h3><p class=mut>${g[2]}</p><button class=btn onclick="${g[3]}">Play</button></div>`).join('')}
+function puzzle(cat,ti){let L=2,n=0,ok=0;T={used:new Set()};const ar=$('#arena');ar.hidden=false;
+const nx=()=>{if(n>=8){ar.innerHTML=`<h3>${ti}</h3><p>You got ${ok} of 8 right and reached level ${L}.</p><button class=btn onclick="puzzle('${cat}','${ti}')">Play again</button>`;return}
+const it=gen(cat,L);ar.innerHTML=`<h3>${ti}, level ${L}</h3><p class=mut>Question ${n+1} of 8</p><h3>${it.q}</h3><div class=opts>${it.o.map((o,j)=>`<button class=opt data-j=${j}>${o}</button>`).join('')}</div>`;
+$$('#arena .opt').forEach(b=>b.onclick=()=>{const c=+b.dataset.j==it.a;if(c)ok++;L=Math.max(1,Math.min(5,L+(c?1:-1)));n++;nx()})};nx();ar.scrollIntoView({behavior:'smooth'})}
+function nback(){const ar=$('#arena'),P='BCDFGHKLMNPQ'.split(''),seq=[];ar.hidden=false;
+for(let k=0;k<16;k++)seq.push(k&&Math.random()<.3?seq[k-1]:P[R(P.length)]);
+const tg=seq.filter((s,k)=>k&&s==seq[k-1]).length;let k=-1,hit=0,fa=0,pr=false;
+ar.innerHTML=`<h3>N-Back (1-back)</h3><p class=mut>Press Match when the letter is the same as the one just before it.</p><div class=score id=nl style="text-align:center;min-height:1.2em">·</div><div class=row style="justify-content:center"><button class=btn id=nm>Match</button></div><p id=ns class=mut style="text-align:center"></p>`;
+$('#nm').onclick=()=>{if(k<1||pr)return;pr=true;seq[k]==seq[k-1]?hit++:fa++};
+const iv=setInterval(()=>{if(!$('#nl')){clearInterval(iv);return}k++;if(k>=seq.length){clearInterval(iv);$('#nl').textContent='·';$('#ns').innerHTML=`Hits: ${hit} of ${tg}. False alarms: ${fa}. <button class=btn onclick="nback()">Play again</button>`;return}
+pr=false;$('#nl').textContent=seq[k];setTimeout(()=>{if($('#nl'))$('#nl').textContent='·'},1300)},1800);ar.scrollIntoView({behavior:'smooth'})}
+const AR=[["Alzheimer's","Dementia prevention, intervention, and care: 2024 report","The Lancet","The Lancet Commission's review of 14 modifiable risk factors, the evidence behind this site's risk model.","https://www.thelancet.com/commissions/dementia-prevention-intervention-care"],
+["Alzheimer's","2024 Lancet Commission: 14 modifiable risk factors","Alzheimer Europe","A plain-language news summary of the Commission's findings and what they mean for prevention.","https://www.alzheimer-europe.org/news/2024-lancet-commission-underscores-potential-dementia-risk-reduction-identifying-14-modifiable"],
+["Alzheimer's","Dementia fact sheet","World Health Organization","Key facts on symptoms, forms of dementia, global numbers and the WHO response.","https://www.who.int/news-room/fact-sheets/detail/dementia"],
+["Alzheimer's","National Institute on Aging (NIA)","NIH","History and mission of the lead US agency for Alzheimer's research.","https://www.nih.gov/about-nih/nih-almanac/national-institute-aging-nia"],
+["Neuroscience","Study shows importance of sleep for optimal memory functioning","Harvard Gazette","How sleep loss affects the hippocampus and the brain's ability to form new memories.","https://news.harvard.edu/gazette/story/2007/02/study-shows-importance-of-sleep-for-optimal-memory-functioning"],
+["Neuroscience","Findings reveal brain mechanisms at work during sleep","Society for Neuroscience","Research on how sleep shapes memory, learning and mental health.","https://www.sfn.org/publications/latest-news/2012/10/16/findings-reveal-brain-mechanisms-at-work-during-sleep"],
+["Brain health","Too little sleep, and too much, affect memory","Harvard Health","What a large Harvard-based study found about sleep duration and memory in later life.","https://www.health.harvard.edu/blog/little-sleep-much-affect-memory-201405027136"],
+["AI & neural networks","Explained: Neural networks","MIT News","A clear introduction to neural networks and deep learning, and where the idea came from.","https://news.mit.edu/2017/explained-neural-networks-deep-learning-0414"],
+["AI & neural networks","Deep learning for Alzheimer's disease prediction: a comprehensive review","Diagnostics (MDPI)","Surveys how deep learning is used on brain scans and other data to detect Alzheimer's.","https://doi.org/10.3390/diagnostics14121281"],
+["AI & neural networks","Early detection of Alzheimer's disease using deep learning techniques","Frontiers in Computer Science","Reviews MRI pre-processing, public datasets and classification methods for early detection.","https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1404494"],
+["AI & neural networks","A review of AI technologies for early prediction of Alzheimer's disease","arXiv","Covers CNNs, RNNs, autoencoders and transfer learning applied to Alzheimer's diagnosis.","https://arxiv.org/pdf/2101.01781"]];
+function renderArticles(f='All'){const t=['All',...new Set(AR.map(a=>a[0]))];
+$('#af').innerHTML=t.map(x=>`<button class="chip${x==f?' on':''}" onclick="renderArticles(this.dataset.t)" data-t="${x}">${x}</button>`).join('');
+$('#alist').innerHTML=AR.filter(a=>f=='All'||a[0]==f).map(a=>`<a class="card-box art" href="${a[4]}" target="_blank" rel="noopener noreferrer"><span class=badge style="margin:0">${a[0]}</span><h3 style="margin-top:10px">${a[1]}</h3><p class=mut>${a[3]}</p><small>${a[2]}</small></a>`).join('')}
+const PREM={on:false,from:25,games:[]}; /* set on:true later to lock levels above 'from' and any game listed in 'games' */
+const LGM=[['matrix','Matrix Reasoning','Spot the pattern and pick the missing tile, like classic fluid-reasoning tests.','🧩'],['order','Order Logic','Deduce who ranks where from scattered clues.','🔗'],['series','Number Logic','Crack the hidden rule behind each number series.','🔢']];
+const TIER=['Novice','Apprentice','Thinker','Strategist','Master','Grandmaster'];
+let P={};try{P=JSON.parse(localStorage.getItem('cgh')||'{}')}catch(e){}
+P.lv=P.lv||{};P.xp=P.xp||0;P.streak=P.streak||0;P.done=P.done||0;
+const sv=()=>{try{localStorage.setItem('cgh',JSON.stringify(P))}catch(e){}},dy=o=>new Date(Date.now()-o*864e5).toISOString().slice(0,10),locked=(g,L)=>PREM.on&&(PREM.games.includes(g)||L>PREM.from),tier=L=>TIER[Math.min(5,Math.floor((L-1)/9))];
+function touch(){const t=dy(0);if(P.last!=t){P.streak=P.last==dy(1)?P.streak+1:1;P.last=t;P.done=0}P.done++}
+function renderArena(){const t=P.last==dy(0)?P.done:0,live=(t||P.last==dy(1))?P.streak:0;
+$('#lhero').innerHTML=`<h2>⚡ Logic Arena</h2><p>Daily reasoning workouts that may help you think sharper and build your cognitive skills. 50 levels per game.</p><div class=stats><span>🔥 ${live}-day streak</span><span>⭐ ${P.xp} XP</span><span>🎯 Daily goal ${Math.min(t,3)}/3</span></div><div class=bar><i style="width:${Math.min(t,3)/3*100}%"></i></div>`;
+$('#lcards').innerHTML=LGM.map(g=>{const L=P.lv[g[0]]||1;return`<div class="card-box lg"><div class=em>${g[3]}</div><h3>${g[1]}</h3><p class=mut>${g[2]}</p><p><b>Level ${L} of 50</b> (${tier(L)})</p><div class=bar><i style="width:${(L-1)/50*100}%"></i></div><button class=btn onclick="play('${g[0]}')">${L>1?'Continue':'Start'}</button></div>`}).join('');$('#larena').hidden=true}
+function play(g){const L=P.lv[g]||1,ar=$('#larena');ar.hidden=false;
+if(locked(g,L)){ar.innerHTML='<h3>Premium level</h3><p class=mut>This level is part of CognHealth Premium. Payments are not set up yet.</p>';return}
+const it={matrix:mgen,order:ogen,series:sgen}[g](L),mt=g=='matrix';
+ar.innerHTML=`<p class=mut>${LGM.find(x=>x[0]==g)[1]}, level ${L} of 50 (${tier(L)})</p><div class=bar><i style="width:${L/50*100}%"></i></div><div class=q>${it.q}</div><div class="${mt?'mo':'opts'}">${it.o.map((o,j)=>`<button class="opt${mt?' tile':''}" data-j=${j}>${o}</button>`).join('')}</div><div id=lmsg></div>`;
+const B=$$('#larena .opt');B.forEach(b=>b.onclick=()=>{B.forEach(x=>x.disabled=true);const c=+b.dataset.j==it.a;b.classList.add(c?'good':'bad');
+if(c){const xp=10+L;P.xp+=xp;P.lv[g]=Math.min(50,L+1);touch();sv();$('#lmsg').innerHTML=`<div class=pop><b>${L==50?'🏆 All 50 levels complete!':'✅ Level '+L+' cleared! +'+xp+' XP'}</b></div><div class=row><button class=btn id=nxt>${L==50?'Back to arena':'Next level'}</button></div>`;$('#nxt').onclick=()=>L==50?go('logic'):play(g)}
+else{B[it.a].classList.add('good');$('#lmsg').innerHTML=`<div class=pop><b>Not quite.</b> The highlighted answer was correct. Look for the rule and try a fresh puzzle.</div><div class=row><button class=btn id=nxt>Try again</button></div>`;$('#nxt').onclick=()=>play(g)}});ar.scrollIntoView({behavior:'smooth'})}
+function sgen(L){const t=Math.min(4,Math.floor((L-1)/10)),k=N(2,3+Math.floor(L/6)),b=N(1,9+L),m=N(2,3),r=N(t?t-1:0,t);let s=[];
+if(r==0)for(let j=0;j<6;j++)s.push(b+j*k);else if(r==1)for(let j=0;j<6;j++)s.push(b*m**j);else if(r==2)for(let j=0;j<6;j++)s.push(j?s[j-1]+k+j-1:b);
+else if(r==3){s=[b,k];for(let j=2;j<6;j++)s.push(s[j-1]+s[j-2])}else for(let j=0;j<6;j++)s.push(j%2?k*j+L:b+j*(k+1));
+return mk(`${s.slice(0,5).join(', ')}, ?`,s[5])}
+function ogen(L){const n=Math.min(8,3+Math.floor(L/9)),nm=sh(['Ava','Ben','Cara','Dev','Eli','Fay','Gus','Hana']).slice(0,n);
+const cl=sh(nm.slice(0,-1).map((x,j)=>(j+L)%2?`${x} is taller than ${nm[j+1]}.`:`${nm[j+1]} is shorter than ${x}.`)),ty=L<8?0:N(0,2),k=N(2,n-1),ans=ty==0?nm[0]:ty==1?nm[n-1]:nm[k-1],
+q=`${cl.join(' ')}<br>${ty==0?'Who is the tallest?':ty==1?'Who is the shortest?':'Who is number '+k+' from the tallest?'}`,o=sh([ans,...sh(nm.filter(x=>x!=ans)).slice(0,3)]);return{q,o,a:o.indexOf(ans)}}
+function cell(c,s,f){const X=[[30],[21,39],[13,30,47]][c],p=x=>s==0?`<circle cx="${x}" cy="30" r="7"/>`:s==1?`<rect x="${x-7}" y="23" width="14" height="14"/>`:`<polygon points="${x},22 ${x+8},37 ${x-8},37"/>`;
+return`<svg viewBox="0 0 60 60" width="100%" fill="${f?'currentColor':'none'}" fill-opacity="${f==1?.3:1}" stroke="currentColor" stroke-width="2">${X.map(p).join('')}</svg>`}
+function mgen(L){const na=L<11?1:L<26?2:3,act=sh([0,1,2]).slice(0,na),rl=[N(0,1),N(0,1),N(0,1)],of=[N(0,2),N(0,2),N(0,2)],cs=[N(0,2),N(0,2),N(0,2)];
+const v=(a,r,c)=>act.includes(a)?(rl[a]?(r+c+of[a])%3:(2*r+c+of[a])%3):cs[a],g=(r,c)=>[v(0,r,c),v(1,r,c),v(2,r,c)],ans=g(2,2),key=x=>x.join(''),set=new Map([[key(ans),ans]]);
+while(set.size<4){const d=ans.slice();for(let z=0;z<(L>20?1:N(1,2));z++){const i=N(0,2);d[i]=(d[i]+N(1,2))%3}set.set(key(d),d)}
+const o=sh([...set.values()]),grid=[0,1,2].flatMap(r=>[0,1,2].map(c=>r==2&&c==2?'<div class=qm>?</div>':`<div>${cell(...g(r,c))}</div>`)).join('');
+return{q:`<div class=mx>${grid}</div><p class=mut style="font-weight:400">Which tile completes the pattern?</p>`,o:o.map(x=>cell(...x)),a:o.findIndex(x=>key(x)==key(ans))}}
+(()=>{const c=document.getElementById('bg'),x=c.getContext('2d');let w,h,nd=[];const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const fit=()=>{w=c.width=innerWidth;h=c.height=innerHeight;nd=Array.from({length:Math.min(70,Math.round(w*h/22000))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}))};
+const draw=()=>{x.clearRect(0,0,w,h);for(let i=0;i<nd.length;i++){const a=nd[i];if(!rm){a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>w)a.vx*=-1;if(a.y<0||a.y>h)a.vy*=-1}
+for(let j=i+1;j<nd.length;j++){const b=nd[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<150){x.strokeStyle=`rgba(79,139,255,${.28*(1-d/150)})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+x.fillStyle='rgba(34,211,238,.7)';x.beginPath();x.arc(a.x,a.y,2,0,6.3);x.fill()}if(!rm)requestAnimationFrame(draw)};
+fit();draw();addEventListener('resize',()=>{fit();if(rm)draw()})})();
+const esc=s=>s.replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+let U=null;try{U=JSON.parse(localStorage.getItem('cghu')||'null')}catch(e){}
+function hdr(){$('#ub').textContent=U?U.name.split(' ')[0]:'Sign in'}
+function setU(u){U=u;try{u?localStorage.setItem('cghu',JSON.stringify(u)):localStorage.removeItem('cghu')}catch(e){}hdr();renderLogin()}
+function renderLogin(){const b=$('#lbody');
+if(U){b.innerHTML=`<p>Signed in as <b>${esc(U.name)}</b> <span class=mut>(${U.via}, demo)</span></p><p class=mut>Your progress is saved in this browser. Saving across devices comes with the live version.</p><div class=row><button class=btn id=lso>Sign out</button></div>`;$('#lso').onclick=()=>setU(null);return}
+b.innerHTML=`<label class=mut for=lnm>Your name</label><input type=text id=lnm placeholder="Sanath" maxlength=40><button class=btn id=lgg style="width:100%;background:#fff;color:#1f1f1f">Continue with Google (demo)</button><p id=lerr style="color:var(--bad);margin-top:12px"></p>`;
+$('#lgg').onclick=()=>{const n=$('#lnm').value.trim();if(!n){$('#lerr').textContent='Please enter your name first.';return}setU({name:n,via:'Google'})};
+}
+hdr();show('home');
+</script></body></html>
