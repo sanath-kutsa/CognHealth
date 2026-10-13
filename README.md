@@ -2,7 +2,7 @@
 # 🧠 CognHealth
 **Early Alzheimer's risk awareness and cognitive training**
 
-Live site: https://YOUR-USERNAME.github.io/cognhealth/
+Live site: https://sanath-kutsa.github.io/CognHealth/
 
 CognHealth is a web app that helps people understand their Alzheimer's risk awareness and train their reasoning skills. It is an educational, screening-style tool. It is **not** a medical device and does **not** diagnose or predict Alzheimer's disease.
 
